@@ -30,7 +30,7 @@ public class UserController {
             userRepository.save(user);
             return "User saved sucessfully";
         } catch (Exception e) {
-            return "Error saving user: " + e.getMessage();
+            return "Error saving user f: " + e.getMessage();
         }
 
     }
