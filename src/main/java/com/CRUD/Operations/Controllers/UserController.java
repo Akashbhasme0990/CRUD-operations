@@ -30,7 +30,7 @@ public class UserController {
             userRepository.save(user);
             return "User saved sucessfully";
         } catch (Exception e) {
-            return "Error saving user: " + e.getMessage();
+            return "Error saving user f: " + e.getMessage();
         }
 
     }
@@ -48,9 +48,9 @@ public class UserController {
         User updatedUser = userService.updateUser(id, userDetails);
         return ResponseEntity.ok(updatedUser);
     }
-    @GetMapping("/yugal")
+    @GetMapping("/akash")
     public  String getDetailsOfStudent(){
-        return "my name is yugal";
+        return "my name is Akash";
     }
 
 }
