@@ -48,5 +48,9 @@ public class UserController {
         User updatedUser = userService.updateUser(id, userDetails);
         return ResponseEntity.ok(updatedUser);
     }
+    @GetMapping("/yugal")
+    public  String getDetailsOfStudent(){
+        return "my name is yugal";
+    }
 
 }
