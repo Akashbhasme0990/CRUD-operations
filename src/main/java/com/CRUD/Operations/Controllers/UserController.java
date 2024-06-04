@@ -50,7 +50,7 @@ public class UserController {
     }
     @GetMapping("/akash")
     public  String getDetailsOfStudent(){
-        return "my name is Akash";
+        return "my name is Akash Bhasme";
     }
 
 }
