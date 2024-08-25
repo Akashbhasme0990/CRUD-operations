@@ -13,7 +13,6 @@ public class OperationsApplication {
 		ConfigurableApplicationContext context=SpringApplication.run(OperationsApplication.class, args);
 		System.out.println(context.getEnvironment());
 		ConfigurableEnvironment environment=context.getEnvironment();
-		System.out.println(environment.getActiveProfiles()[0]);
 	}
 
 }

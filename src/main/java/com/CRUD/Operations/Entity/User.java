@@ -19,7 +19,7 @@ public class User {
     int UserId;
     String userName;
     String password;
-
+    int age;
     String email;
     Long phone;
 }

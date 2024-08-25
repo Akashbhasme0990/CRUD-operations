@@ -64,5 +64,40 @@ public class UserController {
     public Map<User, ArrayList<String>> getUserNames() {
         return userService.getUserData();
     }
+    @GetMapping("/filter")
+    public ResponseEntity<?> filterUsers(@RequestParam(required = false) String userName,
+                                         @RequestParam(required = false) String email,
+                                         @RequestParam(required = false) Integer age,
+                                         @RequestParam(required = false) Long phone) {
+        List<User> users;
+
+        if (userName != null) {
+            users = userService.getUsersByUserName(userName);
+            if (users.isEmpty()) {
+                return new ResponseEntity<>("No users found with the specified username", HttpStatus.NOT_FOUND);
+            }
+        } else if (email != null) {
+            users = userService.getUsersByEmail(email);
+            if (users.isEmpty()) {
+                return new ResponseEntity<>("No users found with the specified email", HttpStatus.NOT_FOUND);
+            }
+        } else if (phone != null) {
+            users = userService.getUsersByPhone(phone);
+            if (users.isEmpty()) {
+                return new ResponseEntity<>("No users found with the specified phone number", HttpStatus.NOT_FOUND);
+            }
+        } else if (age != null) {
+            // Directly return the ResponseEntity from the service
+            return userService.getUsersByAge(age);
+        } else {
+            users = userService.getAllUsers();
+            if (users.isEmpty()) {
+                return new ResponseEntity<>("No users found", HttpStatus.NOT_FOUND);
+            }
+        }
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
 
 }
