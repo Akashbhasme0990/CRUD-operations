@@ -5,10 +5,13 @@ import com.CRUD.Operations.Repository.UserRepository;
 import com.CRUD.Operations.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -24,15 +27,20 @@ public class UserController {
     public List<User> getAllUsers(){
         return  userRepository.findAll();
     }
-    @PostMapping("/User")
-    public String createUser(@RequestBody User user){
-        try {
-            userRepository.save(user);
-            return "User saved sucessfully";
-        } catch (Exception e) {
-            return "Error saving user f: " + e.getMessage();
-        }
-
+//    @PostMapping("/User")
+//    public String createUser(@RequestBody User user){
+//        try {
+//            userRepository.save(user);
+//            return "User saved sucessfully";
+//        } catch (Exception e) {
+//            return "Error saving user f: " + e.getMessage();
+//        }
+//
+//    }
+    @PostMapping("/users/save")
+    public ResponseEntity<List<User>> createUsers(@RequestBody List<User> users) {
+        List<User> savedUsers = userRepository.saveAll(users);
+        return new ResponseEntity<>(savedUsers, HttpStatus.CREATED);
     }
     @DeleteMapping("/user/{id}")
     public String deleteUser(@PathVariable("id") int userId){
@@ -51,6 +59,10 @@ public class UserController {
     @GetMapping("/akash")
     public  String getDetailsOfStudent(){
         return "my name is Akash Bhasme";
+    }
+    @GetMapping("/usernames")
+    public Map<User, ArrayList<String>> getUserNames() {
+        return userService.getUserData();
     }
 
 }

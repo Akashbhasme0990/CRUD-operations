@@ -7,7 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -34,4 +35,22 @@ public class UserService {
             throw new RuntimeException("User not found with id " + userId);
         }
     }
+    public Map<User, ArrayList<String>> getUserData() {
+        Map<User, ArrayList<String>> hashMap = new HashMap<>();
+
+        List<User> users = userRepository.findAll();
+
+        List<User> filteredUsers = users.stream()
+                .filter(user -> user.getUserName().length() > 5)
+                .toList();
+
+        for (User user : filteredUsers) {
+            ArrayList<String> userNames = new ArrayList<>();
+            userNames.add(user.getUserName());
+            hashMap.put(user, userNames);
+        }
+
+        return hashMap;
+    }
+
 }
